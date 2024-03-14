@@ -1,0 +1,20 @@
+<body>
+  <div id="message"></div>
+
+  <script>
+    const eventSource = new EventSource(
+      'http://127.0.0.1:3000/events/sse',
+    );
+
+    eventSource.onmessage = function (event) {
+      const { data, isEnd, ...rest } = JSON.parse(event.data);
+      console.log(event);
+      if (!isEnd) {
+        document.getElementById('message').innerHTML = data;
+      } else {
+        console.log('Message complete');
+        eventSource.close();
+      }
+    };
+  </script>
+</body>
