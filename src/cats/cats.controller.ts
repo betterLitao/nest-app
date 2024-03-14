@@ -17,22 +17,26 @@ import { ValidationPipe } from 'src/core/pipe/validation.pipe';
 import { ZodValidationPipe } from 'src/core/pipe/zod.validation.pipe';
 import { ParseIntPipe } from 'src/core/pipe/parse-int.pipe';
 import { AuthGuard } from 'src/core/guard/auth.guard';
+import { Roles } from 'src/core/decorator/roles.decorator';
+import { CatsService } from './cats.service';
 
 @Controller('cats')
-@UseGuards(AuthGuard)
 export class CatsController {
+  constructor(private readonly catsService: CatsService) {}
   @Get()
   findAll() {
     throw new ForbiddenException();
   }
   @Get(':id')
+  @UseGuards(AuthGuard)
   findOne(@Param('id', ParseIntPipe) id: number) {
     console.log('路由返回');
     return id;
   }
   @Post()
+  @Roles(['admin'])
   create(@Body(ValidationPipe) createCatDto: CreateCatDto) {
-    console.log(createCatDto);
+    return this.catsService.create(createCatDto);
   }
   @Post('create')
   @UsePipes(new ZodValidationPipe(zCreateCatSchema))

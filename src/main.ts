@@ -6,6 +6,8 @@ import { HttpExceptionFilter } from './core/filter/http-exception/http-exception
 import { VersioningType } from '@nestjs/common';
 
 import * as session from 'express-session';
+import { RolesGuard } from './core/guard/roles.guard';
+import { Reflector } from '@nestjs/core';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -13,6 +15,7 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(new TransformInterceptor());
   app.setGlobalPrefix('api'); // 设置全局路由前缀
+  app.useGlobalGuards(new RolesGuard(new Reflector()));
   app.enableVersioning({
     type: VersioningType.URI,
   });
