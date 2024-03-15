@@ -15,7 +15,7 @@ import { CatsModule } from './cats/cats.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'admin',
+      password: 'root',
       database: 'blog',
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
