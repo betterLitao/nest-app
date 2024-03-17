@@ -3,17 +3,18 @@ import { CatsService } from './cats.service';
 import { CatsController } from './cats.controller';
 import { LoggerMiddleware } from 'src/core/middleware/logger.middleware';
 import { mockCatsService } from './mock/mock.cats.module';
+import { useValueEnum } from './constants';
 
 @Module({
   providers: [
     {
-      provide: CatsService,
-      useValue: new mockCatsService(123),
+      provide: useValueEnum.useValue1,
+      useValue: [1, 2, 3],
     },
-    // {
-    //   provide: CatsService,
-    //   useFactory: () => new mockCatsService(123),
-    // },
+    {
+      provide: CatsService,
+      useFactory: () => new mockCatsService(123),
+    },
   ],
   controllers: [CatsController],
 })

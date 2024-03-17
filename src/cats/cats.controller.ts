@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Inject,
   Param,
   Post,
   UseGuards,
@@ -19,10 +20,14 @@ import { ParseIntPipe } from 'src/core/pipe/parse-int.pipe';
 import { AuthGuard } from 'src/core/guard/auth.guard';
 import { Roles } from 'src/core/decorator/roles.decorator';
 import { CatsService } from './cats.service';
+import { useValueEnum } from './constants';
 
 @Controller('cats')
 export class CatsController {
-  constructor(private readonly catsService: CatsService) {}
+  constructor(
+    private readonly catsService: CatsService,
+    @Inject(useValueEnum.useValue1) private readonly valueService: number[],
+  ) {}
   @Get()
   findAll() {
     throw new ForbiddenException();

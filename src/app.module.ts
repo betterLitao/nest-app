@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { LoggerMiddleware } from './core/middleware/logger.middleware';
 import { CatsModule } from './cats/cats.module';
+import { SpiderModule } from './spider/spider.module';
 @Module({
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   imports: [
@@ -22,6 +23,7 @@ import { CatsModule } from './cats/cats.module';
     }),
     UserModule,
     CatsModule,
+    SpiderModule,
   ],
 
   controllers: [AppController],
