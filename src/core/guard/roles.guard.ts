@@ -11,7 +11,7 @@ export class RolesGuard implements CanActivate {
     console.log('全局守卫');
 
     const roles = this.reflector.get(Roles, context.getHandler());
-    console.log(roles);
+    // console.log(roles);
     if (!roles) {
       return true;
     }

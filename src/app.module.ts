@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { LoggerMiddleware } from './core/middleware/logger.middleware';
 import { CatsModule } from './cats/cats.module';
 import { SpiderModule } from './spider/spider.module';
+import { ConfigModule } from './config/config.module';
 @Module({
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   imports: [
@@ -24,6 +25,9 @@ import { SpiderModule } from './spider/spider.module';
     UserModule,
     CatsModule,
     SpiderModule,
+    ConfigModule.forRoot({
+      folder: './config',
+    }),
   ],
 
   controllers: [AppController],

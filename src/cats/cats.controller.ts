@@ -27,6 +27,7 @@ export class CatsController {
   constructor(
     private readonly catsService: CatsService,
     @Inject(useValueEnum.useValue1) private readonly valueService: number[],
+    @Inject('test') private readonly testCatServer,
   ) {}
   @Get()
   findAll() {

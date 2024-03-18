@@ -15,6 +15,17 @@ import { useValueEnum } from './constants';
       provide: CatsService,
       useFactory: () => new mockCatsService(123),
     },
+    {
+      provide: 'test',
+      useFactory(catsService: CatsService) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve([catsService]);
+          }, 1000);
+        });
+      },
+      inject: [CatsService],
+    },
   ],
   controllers: [CatsController],
 })
