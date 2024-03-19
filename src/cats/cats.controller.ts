@@ -5,6 +5,7 @@ import {
   Param,
   Post,
   UseGuards,
+  UseInterceptors,
   UsePipes,
 } from '@nestjs/common';
 import { ForbiddenException } from 'src/common/forbidden/forbidden.exception';
@@ -19,8 +20,10 @@ import { ParseIntPipe } from 'src/core/pipe/parse-int.pipe';
 import { AuthGuard } from 'src/core/guard/auth.guard';
 import { Roles } from 'src/core/decorator/roles.decorator';
 import { CatsService } from './cats.service';
+import { LoggingInterceptor } from 'src/core/interceptor/logging.interceptor';
 
 @Controller('cats')
+@UseInterceptors(LoggingInterceptor)
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
   @Get()
