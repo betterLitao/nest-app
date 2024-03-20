@@ -15,8 +15,10 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Response } from 'express';
 import { UserService } from './user.service';
 import { PostsRo, PostsService } from 'src/posts/posts.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('user')
+@ApiTags('用户相关接口')
 export class UserController<T = number[]> {
   constructor(
     private readonly userService: UserService,

@@ -25,8 +25,11 @@ import { CatsService } from './cats.service';
 import { LoggingInterceptor } from 'src/core/interceptor/logging.interceptor';
 import { useValueEnum } from './constants';
 import { HttpExceptionUseFilter } from 'src/core/filter/http-exception/http-exception.filter';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('cats')
+@ApiTags('cats相关接口')
 @UseInterceptors(LoggingInterceptor)
 export class CatsController {
   constructor(

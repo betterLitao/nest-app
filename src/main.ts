@@ -8,6 +8,7 @@ import { VersioningType } from '@nestjs/common';
 import * as session from 'express-session';
 import { RolesGuard } from './core/guard/roles.guard';
 import { Reflector } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -29,6 +30,14 @@ async function bootstrap() {
       },
     }),
   );
+  const options = new DocumentBuilder()
+    .addBearerAuth()
+    .setTitle('litao api Document')
+    .setDescription('litao')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('/api-docs', app, document);
   await app.listen(3000);
 }
 bootstrap();

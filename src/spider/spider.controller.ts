@@ -10,8 +10,10 @@ import {
 import { SpiderService } from './spider.service';
 import { CreateSpiderDto } from './dto/create-spider.dto';
 import { UpdateSpiderDto } from './dto/update-spider.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('spider')
+@ApiTags('爬虫相关接口🦎')
 export class SpiderController {
   constructor(private readonly spiderService: SpiderService) {}
 
