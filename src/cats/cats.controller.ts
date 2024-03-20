@@ -5,6 +5,7 @@ import {
   Inject,
   Param,
   Post,
+  UseFilters,
   UseGuards,
   UseInterceptors,
   UsePipes,
@@ -23,6 +24,7 @@ import { Roles } from 'src/core/decorator/roles.decorator';
 import { CatsService } from './cats.service';
 import { LoggingInterceptor } from 'src/core/interceptor/logging.interceptor';
 import { useValueEnum } from './constants';
+import { HttpExceptionUseFilter } from 'src/core/filter/http-exception/http-exception.filter';
 
 @Controller('cats')
 @UseInterceptors(LoggingInterceptor)
@@ -43,7 +45,8 @@ export class CatsController {
     return id;
   }
   @Post()
-  @Roles(['admin'])
+  @UseFilters(HttpExceptionUseFilter)
+  @Roles('admin')
   create(@Body(ValidationPipe) createCatDto: CreateCatDto) {
     return this.catsService.create(createCatDto);
   }

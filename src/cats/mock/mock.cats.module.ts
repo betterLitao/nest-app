@@ -10,4 +10,5 @@ export class mockCatsService implements CatsService {
 
     return { success: true };
   }
+  onModuleInit(): void {}
 }
