@@ -1,7 +1,8 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PostsEntity } from './posts.entity';
+import { UserService } from 'src/user/user.service';
 
 export interface PostsRo {
   list: PostsEntity[];
@@ -12,6 +13,8 @@ export class PostsService {
   constructor(
     @InjectRepository(PostsEntity)
     private readonly postsRepository: Repository<PostsEntity>,
+    @Inject(forwardRef(() => UserService))
+    private readonly uerService: UserService,
   ) {}
 
   // 创建文章
@@ -29,6 +32,7 @@ export class PostsService {
 
   // 获取文章列表
   async findAll(query): Promise<PostsRo> {
+    // console.log(this.uerService.findAll());
     const { pageNum = 1, pageSize = 10 } = query;
     const posts = await this.postsRepository.find({
       skip: (pageNum - 1) * pageSize,

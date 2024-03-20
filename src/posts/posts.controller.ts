@@ -18,10 +18,7 @@ import { HttpExceptionUseFilter } from 'src/core/filter/http-exception/http-exce
 @Controller('post')
 @UseFilters(HttpExceptionUseFilter)
 export class PostsController {
-  constructor(
-    private readonly postsService: PostsService,
-    private readonly userService: UserService,
-  ) {}
+  constructor(private readonly postsService: PostsService) {}
 
   /**
    * 创建文章
@@ -37,7 +34,6 @@ export class PostsController {
    */
   @Get()
   async findAll(@Query() query): Promise<PostsRo> {
-    console.log(this.userService.findAll());
     return await this.postsService.findAll(query);
   }
 

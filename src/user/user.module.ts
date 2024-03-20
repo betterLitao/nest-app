@@ -1,4 +1,4 @@
-import { Global, Module } from '@nestjs/common';
+import { Global, Module, forwardRef } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { PostsModule } from 'src/posts/posts.module';
@@ -10,6 +10,6 @@ import { PostsModule } from 'src/posts/posts.module';
     UserService,
   ],
   exports: [UserService],
-  imports: [PostsModule],
+  imports: [forwardRef(() => PostsModule)],
 })
 export class UserModule {}

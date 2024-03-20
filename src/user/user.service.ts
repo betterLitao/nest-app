@@ -1,9 +1,14 @@
-import { Injectable, PipeTransform } from '@nestjs/common';
+import { Inject, Injectable, PipeTransform, forwardRef } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import * as svgCaptcha from 'svg-captcha';
+import { PostsService } from 'src/posts/posts.service';
 @Injectable()
 export class UserService {
+  constructor(
+    @Inject(forwardRef(() => PostsService))
+    private readonly postsService: PostsService,
+  ) {}
   getCode() {
     const captcha = svgCaptcha.create({
       size: 4, //生成几个验证码
@@ -22,6 +27,8 @@ export class UserService {
   }
 
   findAll() {
+    // console.log(this.postsService.findAll({}));
+
     return `这是UserService中的findAll`;
   }
 
