@@ -4,6 +4,7 @@ import { CatsController } from './cats.controller';
 import { LoggerMiddleware } from 'src/core/middleware/logger.middleware';
 import { mockCatsService } from './mock/mock.cats.module';
 import { useValueEnum } from './constants';
+import { AuthGuard } from 'src/core/guard/auth.guard';
 
 @Module({
   providers: [
@@ -25,6 +26,10 @@ import { useValueEnum } from './constants';
         });
       },
       inject: [CatsService],
+    },
+    {
+      useClass: AuthGuard,
+      provide: 'authGuard',
     },
   ],
   controllers: [CatsController],

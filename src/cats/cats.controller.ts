@@ -26,12 +26,15 @@ import { LoggingInterceptor } from 'src/core/interceptor/logging.interceptor';
 import { useValueEnum } from './constants';
 import { HttpExceptionUseFilter } from 'src/core/filter/http-exception/http-exception.filter';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { UserService } from 'src/user/user.service';
 
 @ApiBearerAuth()
 @Controller('cats')
 @ApiTags('cats相关接口')
 @UseInterceptors(LoggingInterceptor)
 export class CatsController {
+  @Inject(UserService)
+  private userService: UserService;
   constructor(
     private readonly catsService: CatsService,
     @Inject(useValueEnum.useValue1) private readonly valueService: number[],
@@ -42,7 +45,7 @@ export class CatsController {
     throw new ForbiddenException();
   }
   @Get(':id')
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   findOne(@Param('id', ParseIntPipe) id: number) {
     console.log('路由返回');
     return id;
